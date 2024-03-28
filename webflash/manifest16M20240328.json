@@ -1,12 +1,12 @@
 {
-    "name": "Six-Clock 20240327test",
+    "name": "Six-Clock 2.1-20240328",
     "new_install_prompt_erase": true,
     "builds": [
       {
         "chipFamily": "ESP32",
         "improv": false,
         "parts": [
-          { "path": "firmware/onlyone20240327test.bin", "offset": 0 }
+          { "path": "firmware/onlyone20240328.bin", "offset": 0 }
         ]
       }
     ]
