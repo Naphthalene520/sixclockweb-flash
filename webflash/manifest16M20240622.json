@@ -1,0 +1,13 @@
+{
+    "name": "Six-Clock 2.3-20240622",
+    "new_install_prompt_erase": true,
+    "builds": [
+      {
+        "chipFamily": "ESP32",
+        "improv": false,
+        "parts": [
+          { "path": "firmware/onlyone20240622.bin", "offset": 0 }
+        ]
+      }
+    ]
+  }
