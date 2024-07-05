@@ -104,6 +104,45 @@
         footer p {
             margin: 5px 0;
         }
+
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #3498db;
+            opacity: 0;
+            transform-origin: center;
+        }
+
+        @keyframes explode-flyout {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes explode-expand {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -194,12 +233,62 @@
         }
     </script>
 
+    <script>
+        document.addEventListener('click', function (event) {
+            if (event.target.tagName.toLowerCase() === 'a' || event.target.tagName.toLowerCase() === 'button') return;
+            const centerParticle = createParticle(event.pageX, event.pageY, 'explode-expand');
+            centerParticle.style.width = '20px';
+            centerParticle.style.height = '20px';
+            centerParticle.style.backgroundColor = '#3498db';
+            centerParticle.style.opacity = '1';
+            document.body.appendChild(centerParticle);
+            setTimeout(() => centerParticle.remove(), 300);
+            for (let i = 0; i < 60; i++) {
+                const particle = createParticle(
+                    event.pageX + (Math.random() - 0.5) * 60,
+                    event.pageY + (Math.random() - 0.5) * 60,
+                    'explode-flyout'
+                );
+                particle.style.width = `${3 + Math.random()}px`;
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 50%, 50%)`;
+                particle.style.animationDuration = `${Math.random() * 0.8 + 0.5}s`;
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 2000);
+            }
+        });
+
+        function createParticle(x, y, animationName) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.animation = `${animationName} 1s ease-out forwards`;
+            return particle;
+        }
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?663f3e39f34f4e5bfa28d556c244bfe7";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
     <footer>
         <div id="notSupported" style="display: none;">这个浏览器不支持网页端串口，建议使用Chrome或者Edge</div>
 
         <p>网页烧录工具原工具：<a href="https://github.com/esphome/esp-web-tools" class="background-primary">EspWebTools</a></p>
         <p>&copy; 2024 Sixclock. All Rights Reserved.</p>
     </footer>
+
+
+
+
 </body>
 
 </html>
